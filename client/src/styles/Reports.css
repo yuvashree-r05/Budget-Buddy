@@ -1,0 +1,128 @@
+/* ===== REPORT COLORS ===== */
+
+:root {
+  --chart-color-1: #e8b4c0;
+  --chart-color-2: #d48a9b;
+  --chart-color-3: #f7d9e0;
+  --chart-color-4: #c97d91;
+  --chart-color-5: #f0c4cf;
+}
+
+/* ===== REPORT CARDS ===== */
+
+.report-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.report-card {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 22px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(232, 180, 192, 0.18);
+  transition: 0.3s ease;
+}
+
+.report-card:hover {
+  transform: translateY(-5px);
+}
+
+.report-card h3 {
+  color: #5a4a50;
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+.report-card h2 {
+  color: #a86c7a;
+  font-size: 32px;
+}
+
+/* ===== PROGRESS SECTION ===== */
+
+.progress-section {
+  margin-top: 35px;
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 22px;
+  box-shadow: 0 6px 18px rgba(232, 180, 192, 0.18);
+}
+
+.progress-section h2 {
+  color: #4a3b40;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 24px;
+  background: #f8dde3;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #d48a9b;
+  border-radius: 20px;
+  transition: width 0.5s ease;
+}
+
+.progress-text {
+  margin-top: 15px;
+  color: #7a6a70;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* ===== CHART SECTION ===== */
+
+.chart-section {
+  margin-top: 35px;
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 22px;
+  box-shadow: 0 6px 18px rgba(232, 180, 192, 0.18);
+}
+
+.chart-section h2 {
+  color: #4a3b40;
+  margin-bottom: 25px;
+}
+
+.no-chart-data {
+  text-align: center;
+  color: #7a6a70;
+  font-size: 16px;
+  padding: 30px;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media screen and (max-width: 1200px) {
+
+  .report-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+
+  .report-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-section,
+  .chart-section {
+    padding: 25px;
+  }
+
+  .report-card h2 {
+    font-size: 26px;
+  }
+
+}

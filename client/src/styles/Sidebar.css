@@ -1,0 +1,124 @@
+/* ===== SIDEBAR ===== */
+
+.sidebar {
+  width: 260px;
+  min-height: 100vh;
+
+  background: #f8dde3;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  padding: 30px 20px;
+
+  border-right: 1px solid #f2ccd5;
+}
+
+.sidebar h2 {
+  text-align: center;
+
+  color: #4a3b40;
+
+  margin-bottom: 45px;
+
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* ===== MENU ===== */
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 14px 18px;
+  margin-bottom: 12px;
+
+  border-radius: 14px;
+
+  color: #5a4a50;
+  font-size: 17px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.sidebar li svg {
+  font-size: 20px;
+  color: #c97d91;
+}
+
+.sidebar li:hover {
+  background: #efc8d2;
+  transform: translateX(5px);
+}
+
+/* Active Menu */
+
+.sidebar .active {
+  background: #e8b4c0;
+}
+
+/* Logout */
+
+.sidebar li:last-child {
+  margin-top: 60px;
+  color: #b0576c;
+}
+
+.sidebar li:last-child:hover {
+  background: #f3c5d0;
+}
+
+/* ===== MOBILE ===== */
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 220px;
+  }
+
+  .sidebar h2 {
+    font-size: 26px;
+  }
+
+  .sidebar li {
+    font-size: 15px;
+  }
+}
+
+.user-profile {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.avatar {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto 10px;
+
+  font-size: 30px;
+  font-weight: 700;
+
+  background-color: #f8d7e3;
+  color: #6b4b57;
+}
+
+.user-profile h3 {
+  color: #6b4b57;
+  font-size: 18px;
+}

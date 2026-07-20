@@ -1,0 +1,264 @@
+/* ===========================
+        PAGE LAYOUT
+=========================== */
+
+.dashboard-content {
+  flex: 1;
+  padding: 40px;
+  background: #fff9fb;
+  min-height: 100vh;
+}
+
+.dashboard-content h1 {
+  color: #5d4b54;
+  margin-bottom: 25px;
+  font-size: 36px;
+}
+
+/* ===========================
+        FORM CARD
+=========================== */
+
+.income-card {
+
+  background: #ffffff;
+
+  padding: 30px;
+
+  border-radius: 20px;
+
+  box-shadow: 0 8px 25px rgba(233, 182, 196, 0.18);
+
+  display: flex;
+
+  gap: 20px;
+
+  align-items: center;
+
+  margin-bottom: 40px;
+
+  flex-wrap: wrap;
+
+}
+
+.income-card input {
+
+  flex: 1;
+
+  min-width: 220px;
+
+  padding: 14px 18px;
+
+  border: 2px solid #f5d6df;
+
+  border-radius: 12px;
+
+  font-size: 16px;
+
+  outline: none;
+
+  transition: 0.3s;
+
+  background: #fffdfd;
+
+}
+
+.income-card input:focus {
+
+  border-color: #d8899d;
+
+}
+
+.income-card button {
+
+  padding: 14px 28px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  background: #d8899d;
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  transition: 0.3s;
+
+}
+
+.income-card button:hover {
+
+  background: #bf6d85;
+
+}
+
+/* ===========================
+        TABLE
+=========================== */
+
+.income-table-container {
+
+  background: white;
+
+  padding: 30px;
+
+  border-radius: 20px;
+
+  box-shadow: 0 8px 25px rgba(233,182,196,.18);
+
+}
+
+.income-table-container h2{
+
+  color:#5d4b54;
+
+  margin-bottom:20px;
+
+}
+
+.income-table{
+
+  width:100%;
+
+  border-collapse:collapse;
+
+}
+
+.income-table thead{
+
+  background:#f9e5eb;
+
+}
+
+.income-table th{
+
+  padding:16px;
+
+  color:#6a4d58;
+
+  font-size:17px;
+
+}
+
+.income-table td{
+
+  padding:18px;
+
+  text-align:center;
+
+  border-bottom:1px solid #f2d7df;
+
+}
+
+.income-table tbody tr{
+
+  transition:.3s;
+
+}
+
+.income-table tbody tr:hover{
+
+  background:#fff4f7;
+
+}
+
+/* ===========================
+        BUTTONS
+=========================== */
+
+.edit-btn{
+
+  background:#efbfd0;
+
+  color:#6b4553;
+
+  border:none;
+
+  padding:8px 18px;
+
+  border-radius:8px;
+
+  cursor:pointer;
+
+  margin-right:10px;
+
+  transition:.3s;
+
+}
+
+.edit-btn:hover{
+
+  background:#df9db2;
+
+  color:white;
+
+}
+
+.delete-btn{
+
+  background:#ffdde4;
+
+  color:#c54e74;
+
+  border:none;
+
+  padding:8px 18px;
+
+  border-radius:8px;
+
+  cursor:pointer;
+
+  transition:.3s;
+
+}
+
+.delete-btn:hover{
+
+  background:#ffb8c8;
+
+  color:white;
+
+}
+
+/* ===========================
+        NO DATA
+=========================== */
+
+.no-data{
+
+  padding:30px;
+
+  color:#999;
+
+  font-style:italic;
+
+}
+
+/* ===========================
+        RESPONSIVE
+=========================== */
+
+@media(max-width:900px){
+
+.income-card{
+
+flex-direction:column;
+
+align-items:stretch;
+
+}
+
+.income-table{
+
+display:block;
+
+overflow-x:auto;
+
+}
+
+}

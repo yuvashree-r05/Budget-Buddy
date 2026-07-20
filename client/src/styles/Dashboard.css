@@ -1,0 +1,147 @@
+/* ===== MAIN LAYOUT ===== */
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #fff8fa;
+}
+
+.dashboard-content {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  padding: 40px;
+}
+
+.dashboard-content h1 {
+  color: #4a3b40;
+  margin-bottom: 10px;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.dashboard-content p {
+  color: #7a6a70;
+  font-size: 18px;
+}
+
+/* ===== SUMMARY CARDS ===== */
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin: 35px 0;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 30px;
+  text-align: center;
+
+  box-shadow: 0 6px 18px rgba(232, 180, 192, 0.18);
+
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+.card svg {
+  font-size: 34px;
+  color: #d48a9b;
+  margin-bottom: 18px;
+}
+
+.card h3 {
+  color: #5a4a50;
+  margin-bottom: 12px;
+  font-size: 22px;
+}
+
+.card h2 {
+  color: #a86c7a;
+  font-size: 36px;
+}
+
+/* ===== PLANNER SECTION ===== */
+
+.planner-section {
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 22px;
+  margin-bottom: 30px;
+
+  box-shadow: 0 6px 18px rgba(232, 180, 192, 0.18);
+}
+
+.planner-section h2 {
+  color: #4a3b40;
+  margin-bottom: 10px;
+}
+
+.planner-section p {
+  color: #7a6a70;
+}
+
+.planner-section button {
+  margin-top: 20px;
+
+  background: #e8b4c0;
+  color: #4a3b40;
+
+  border: none;
+  padding: 14px 28px;
+
+  border-radius: 14px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.planner-section button:hover {
+  background: #dca0ae;
+}
+
+/* ===== AI SECTION ===== */
+
+.ai-section {
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 22px;
+
+  box-shadow: 0 6px 18px rgba(232, 180, 192, 0.18);
+}
+
+.ai-section h2 {
+  color: #4a3b40;
+  margin-bottom: 10px;
+}
+
+.ai-section p {
+  color: #7a6a70;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media screen and (max-width: 1200px) {
+  .summary-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard-content {
+    margin-left: 0;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+}

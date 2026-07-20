@@ -1,0 +1,223 @@
+/* ===========================
+        PAGE LAYOUT
+=========================== */
+
+.dashboard-content {
+
+  flex: 1;
+
+  padding: 40px;
+
+  background: #fff9fb;
+
+  min-height: 100vh;
+
+}
+
+.dashboard-content h1 {
+
+  color: #5d4b54;
+
+  font-size: 36px;
+
+  margin-bottom: 30px;
+
+}
+
+/* ===========================
+        PROFILE CARD
+=========================== */
+
+.profile-card {
+
+  max-width: 650px;
+
+  margin: auto;
+
+  background: white;
+
+  border-radius: 22px;
+
+  padding: 40px;
+
+  text-align: center;
+
+  box-shadow: 0 8px 25px rgba(233,182,196,.18);
+
+}
+
+/* ===========================
+        PROFILE ICON
+=========================== */
+
+.profile-icon {
+
+  font-size: 90px;
+
+  color: #d8899d;
+
+  margin-bottom: 15px;
+
+}
+
+.profile-card h2 {
+
+  color: #5d4b54;
+
+  font-size: 28px;
+
+  margin-bottom: 8px;
+
+}
+
+.profile-tagline {
+
+  color: #8a6d77;
+
+  font-size: 16px;
+
+  margin-bottom: 35px;
+
+}
+
+/* ===========================
+      PROFILE DETAILS
+=========================== */
+
+.profile-details {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+
+  margin-bottom: 35px;
+
+}
+
+.detail-row {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  background: #fff5f8;
+
+  padding: 18px 22px;
+
+  border-radius: 14px;
+
+  border-left: 5px solid #d8899d;
+
+}
+
+.detail-row h3 {
+
+  color: #6a4d58;
+
+  font-size: 17px;
+
+  margin: 0;
+
+}
+
+.detail-row p {
+
+  color: #555;
+
+  font-size: 16px;
+
+  margin: 0;
+
+  font-weight: 500;
+
+}
+
+/* ===========================
+        LOGOUT BUTTON
+=========================== */
+
+.logout-btn {
+
+  width: 100%;
+
+  background: #ff7d96;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 14px;
+
+  padding: 15px;
+
+  font-size: 17px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: .3s;
+
+}
+
+.logout-btn:hover {
+
+  background: #e55b79;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 18px rgba(229,91,121,.25);
+
+}
+
+/* ===========================
+        RESPONSIVE
+=========================== */
+
+@media (max-width:768px) {
+
+  .dashboard-content {
+
+    padding: 20px;
+
+  }
+
+  .dashboard-content h1 {
+
+    font-size: 30px;
+
+  }
+
+  .profile-card {
+
+    padding: 25px;
+
+  }
+
+  .profile-icon {
+
+    font-size: 75px;
+
+  }
+
+  .detail-row {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 8px;
+
+  }
+
+  .logout-btn {
+
+    width: 100%;
+
+  }
+
+}
