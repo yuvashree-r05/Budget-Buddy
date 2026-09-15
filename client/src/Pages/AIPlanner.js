@@ -12,6 +12,7 @@ const AIPlanner = () => {
   const [goal, setGoal] = useState(0);
 
   const [plan, setPlan] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
 
   const user =
     JSON.parse(localStorage.getItem("user"));
@@ -59,43 +60,52 @@ const AIPlanner = () => {
     }
   };
 
-  const generatePlan = () => {
+  const generatePlan = async () => {
 
-    const remaining =
-      income - expense;
+    setAiLoading(true);
+    setPlan("");
 
-    let suggestion = "";
+    try {
 
-    if (remaining <= 0) {
-      suggestion =
-        "⚠️ You are spending more than your income.";
+      const categoryTotals = {};
+
+      const expenseRes = await axios.get(
+        `${API_URL}/api/expense/${user._id}`
+      );
+
+      (expenseRes.data || []).forEach((item) => {
+
+        const category =
+          item.category || "Others";
+
+        categoryTotals[category] =
+          (categoryTotals[category] || 0) +
+          Number(item.amount);
+
+      });
+
+      const response = await axios.post(
+        `${API_URL}/api/ai/suggestions`,
+        {
+          totalIncome: income,
+          totalExpense: expense,
+          goalAmount: goal,
+          categoryTotals
+        }
+      );
+
+      setPlan(response.data.suggestion);
+
+    } catch (error) {
+
+      console.log("AI Plan Error", error);
+      setPlan("Couldn't generate a plan right now.");
+
+    } finally {
+
+      setAiLoading(false);
+
     }
-
-    else if (remaining >= goal) {
-      suggestion =
-        `✅ You can achieve your savings goal of ₹${goal} this month.`;
-    }
-
-    else {
-      suggestion =
-        `📉 Reduce expenses by ₹${goal - remaining} to achieve your goal.`;
-    }
-
-    setPlan(
-      `
-Income: ₹${income}
-
-Expense: ₹${expense}
-
-Remaining Budget: ₹${remaining}
-
-Recommended Savings: ₹${Math.round(
-        remaining * 0.5
-      )}
-
-${suggestion}
-      `
-    );
   };
 
   return (
@@ -120,8 +130,9 @@ ${suggestion}
 
           <button
             onClick={generatePlan}
+            disabled={aiLoading}
           >
-            Generate Plan
+            {aiLoading ? "Generating..." : "Generate Plan"}
           </button>
 
         </div>
@@ -132,7 +143,7 @@ ${suggestion}
 
             <h2>Personalized Plan</h2>
 
-            <pre>{plan}</pre>
+            <p>{plan}</p>
 
           </div>
 
