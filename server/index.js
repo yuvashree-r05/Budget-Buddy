@@ -7,7 +7,7 @@ const authRoutes = require("./routes/auth");
 const incomeRoutes = require("./routes/income");
 const expenseRoutes = require("./routes/expense");
 const goalRoutes = require("./routes/goal");
-
+const aiRoutes = require("./routes/ai");
 
 const app = express();
 
@@ -19,6 +19,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/income", incomeRoutes);
 app.use("/api/expense", expenseRoutes);
 app.use("/api/goal", goalRoutes);
+app.use("/api/ai", aiRoutes);
 
 /* ================= DATABASE ================= */
 

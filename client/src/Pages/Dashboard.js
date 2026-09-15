@@ -24,6 +24,9 @@ const Dashboard = () => {
   const [expenseData, setExpenseData] = useState([]);
   const [goalAmount, setGoalAmount] = useState(0);
 
+  const [aiSuggestion, setAiSuggestion] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
+
   useEffect(() => {
 
     fetchIncome();
@@ -66,26 +69,26 @@ const Dashboard = () => {
     }
   };
 
- const fetchGoal = async () => {
+  const fetchGoal = async () => {
 
-  try {
+    try {
 
-    const response = await axios.get(
-      `${API_URL}/api/goal/${user._id}`
-    );
+      const response = await axios.get(
+        `${API_URL}/api/goal/${user._id}`
+      );
 
-    console.log("Goal Data:", response.data);
+      console.log("Goal Data:", response.data);
 
-    if (response.data) {
-      setGoalAmount(response.data.targetAmount || 0);
+      if (response.data) {
+        setGoalAmount(response.data.targetAmount || 0);
+      }
+
+    } catch (error) {
+
+      console.log("Goal Fetch Error", error);
+
     }
-
-  } catch (error) {
-
-    console.log("Goal Fetch Error", error);
-
-  }
-};
+  };
 
   const totalIncome = incomeData.reduce(
     (total, item) => total + Number(item.amount),
@@ -99,6 +102,58 @@ const Dashboard = () => {
 
   const budgetLeft =
     totalIncome - totalExpense;
+
+  useEffect(() => {
+
+    if (totalIncome > 0) {
+      fetchAiSuggestion();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [totalIncome, totalExpense, goalAmount]);
+
+  const fetchAiSuggestion = async () => {
+
+    setAiLoading(true);
+
+    try {
+
+      const categoryTotals = {};
+
+      expenseData.forEach((item) => {
+
+        const category =
+          item.category || "Others";
+
+        categoryTotals[category] =
+          (categoryTotals[category] || 0) +
+          Number(item.amount);
+
+      });
+
+      const response = await axios.post(
+        `${API_URL}/api/ai/suggestions`,
+        {
+          totalIncome,
+          totalExpense,
+          goalAmount,
+          categoryTotals
+        }
+      );
+
+      setAiSuggestion(response.data.suggestion);
+
+    } catch (error) {
+
+      console.log("AI Suggestion Fetch Error", error);
+      setAiSuggestion("Couldn't load a suggestion right now.");
+
+    } finally {
+
+      setAiLoading(false);
+
+    }
+  };
 
   return (
     <div className="dashboard-layout">
@@ -169,12 +224,13 @@ const Dashboard = () => {
                 Add income details to receive
                 personalized recommendations.
               </p>
+            ) : aiLoading ? (
+              <p>
+                Generating your suggestion...
+              </p>
             ) : (
               <p>
-                Based on your income, you could
-                potentially save around ₹
-                {Math.round(totalIncome * 0.2)}
-                every month.
+                {aiSuggestion}
               </p>
             )
           }

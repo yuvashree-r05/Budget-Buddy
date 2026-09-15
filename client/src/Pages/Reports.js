@@ -22,6 +22,9 @@ const Reports = () => {
   const [goal, setGoal] = useState(0);
   const [expenseData, setExpenseData] = useState([]);
 
+  const [aiSummary, setAiSummary] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
+
   const user =
     JSON.parse(localStorage.getItem("user"));
 
@@ -135,6 +138,45 @@ const Reports = () => {
     name: category,
     value: categoryTotals[category]
   }));
+
+  useEffect(() => {
+
+    if (income > 0 && expenseData.length > 0) {
+      fetchAiSummary();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [income, expense, goal, expenseData]);
+
+  const fetchAiSummary = async () => {
+
+    setAiLoading(true);
+
+    try {
+
+      const response = await axios.post(
+        `${API_URL}/api/ai/suggestions`,
+        {
+          totalIncome: income,
+          totalExpense: expense,
+          goalAmount: goal,
+          categoryTotals
+        }
+      );
+
+      setAiSummary(response.data.suggestion);
+
+    } catch (error) {
+
+      console.log("AI Summary Fetch Error", error);
+      setAiSummary("Couldn't load a summary right now.");
+
+    } finally {
+
+      setAiLoading(false);
+
+    }
+  };
 
   return (
     <div className="dashboard-layout">
@@ -253,6 +295,29 @@ const Reports = () => {
             </div>
 
           )}
+
+        </div>
+
+        <div className="ai-summary-section">
+
+          <h2>AI Spending Summary</h2>
+
+          {
+            income === 0 || expenseData.length === 0 ? (
+              <p>
+                Add income and expense details to get
+                an AI-generated summary.
+              </p>
+            ) : aiLoading ? (
+              <p>
+                Generating your summary...
+              </p>
+            ) : (
+              <p>
+                {aiSummary}
+              </p>
+            )
+          }
 
         </div>
 
