@@ -28,7 +28,7 @@ Give ONE short, specific, actionable suggestion (max 2 sentences) to help them s
       },
       body: JSON.stringify({
         model: "openai/gpt-oss-120b",
-        max_tokens: 200,
+        max_tokens: 300,
         messages: [{ role: "user", content: prompt }]
       })
     });

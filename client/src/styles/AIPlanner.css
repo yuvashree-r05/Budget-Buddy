@@ -45,6 +45,12 @@
   background: #dca0ae;
 }
 
+.planner-card button:disabled {
+  background: #f0d5db;
+  color: #b0a0a6;
+  cursor: not-allowed;
+}
+
 .ai-result {
   margin-top: 30px;
 
@@ -61,7 +67,7 @@
   margin-bottom: 20px;
 }
 
-.ai-result pre {
+.ai-result p {
   white-space: pre-wrap;
 
   font-size: 16px;
