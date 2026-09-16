@@ -20,81 +20,82 @@
 =========================== */
 
 .expense-card {
-
   background: #ffffff;
-
   padding: 30px;
-
   border-radius: 20px;
-
   box-shadow: 0 8px 25px rgba(233, 182, 196, 0.18);
-
   display: flex;
-
   gap: 20px;
-
   align-items: center;
-
   margin-bottom: 40px;
-
   flex-wrap: wrap;
-
 }
 
 .expense-card input {
-
   flex: 1;
-
   min-width: 220px;
-
   padding: 14px 18px;
-
   border: 2px solid #f5d6df;
-
   border-radius: 12px;
-
   font-size: 16px;
-
   outline: none;
-
   transition: 0.3s;
-
   background: #fffdfd;
-
 }
 
 .expense-card input:focus {
-
   border-color: #d8899d;
+}
 
+.expense-card input[type="date"] {
+  min-width: 180px;
+  color: #6a4d58;
 }
 
 .expense-card button {
-
   padding: 14px 28px;
-
   border: none;
-
   border-radius: 12px;
-
   cursor: pointer;
-
   background: #d8899d;
-
   color: white;
-
   font-size: 16px;
-
   font-weight: 600;
-
   transition: 0.3s;
-
 }
 
 .expense-card button:hover {
-
   background: #bf6d85;
+}
 
+/* ===========================
+        MONTH SELECTOR
+=========================== */
+
+.month-selector {
+  margin-bottom: 25px;
+}
+
+.month-selector label {
+  color: #5d4b54;
+  font-weight: 600;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.month-selector input[type="month"] {
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 2px solid #f5d6df;
+  background: #fffdfd;
+  color: #6a4d58;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.month-selector input[type="month"]:focus {
+  border-color: #d8899d;
 }
 
 /* ===========================
@@ -102,163 +103,112 @@
 =========================== */
 
 .expense-table {
-
   background: white;
-
   padding: 30px;
-
   border-radius: 20px;
-
   box-shadow: 0 8px 25px rgba(233,182,196,.18);
-
 }
 
-.expense-table h2{
-
-  color:#5d4b54;
-
-  margin-bottom:20px;
-
+.expense-table h2 {
+  color: #5d4b54;
+  margin-bottom: 20px;
 }
 
-.expense-table table{
-
-  width:100%;
-
-  border-collapse:collapse;
-
+.expense-table table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.expense-table thead{
-
-  background:#f9e5eb;
-
+.expense-table thead {
+  background: #f9e5eb;
 }
 
-.expense-table th{
-
-  padding:16px;
-
-  color:#6a4d58;
-
-  font-size:17px;
-
+.expense-table th {
+  padding: 16px;
+  color: #6a4d58;
+  font-size: 17px;
 }
 
-.expense-table td{
-
-  padding:18px;
-
-  text-align:center;
-
-  border-bottom:1px solid #f2d7df;
-
+.expense-table td {
+  padding: 18px;
+  text-align: center;
+  border-bottom: 1px solid #f2d7df;
 }
 
-.expense-table tbody tr{
-
-  transition:.3s;
-
+.expense-table tbody tr {
+  transition: .3s;
 }
 
-.expense-table tbody tr:hover{
-
-  background:#fff4f7;
-
+.expense-table tbody tr:hover {
+  background: #fff4f7;
 }
 
 /* ===========================
         BUTTONS
 =========================== */
 
-.expense-table button:first-child{
-
-  background:#efbfd0;
-
-  color:#6b4553;
-
-  border:none;
-
-  padding:8px 18px;
-
-  border-radius:8px;
-
-  cursor:pointer;
-
-  margin-right:10px;
-
-  transition:.3s;
-
+.expense-table button:first-child {
+  background: #efbfd0;
+  color: #6b4553;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: .3s;
 }
 
-.expense-table button:first-child:hover{
-
-  background:#df9db2;
-
-  color:white;
-
+.expense-table button:first-child:hover {
+  background: #df9db2;
+  color: white;
 }
 
-.expense-table button:last-child{
-
-  background:#ffdde4;
-
-  color:#c54e74;
-
-  border:none;
-
-  padding:8px 18px;
-
-  border-radius:8px;
-
-  cursor:pointer;
-
-  transition:.3s;
-
+.expense-table button:last-child {
+  background: #ffdde4;
+  color: #c54e74;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: .3s;
 }
 
-.expense-table button:last-child:hover{
-
-  background:#ffb8c8;
-
-  color:white;
-
+.expense-table button:last-child:hover {
+  background: #ffb8c8;
+  color: white;
 }
 
 /* ===========================
         NO DATA
 =========================== */
 
-.no-data{
+.no-data {
+  padding: 30px;
+  color: #999;
+  font-style: italic;
+}
 
-  padding:30px;
-
-  color:#999;
-
-  font-style:italic;
-
+.no-data-row {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  padding: 30px !important;
 }
 
 /* ===========================
         RESPONSIVE
 =========================== */
 
-@media(max-width:900px){
+@media(max-width:900px) {
 
-.expense-card{
+  .expense-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-flex-direction:column;
-
-align-items:stretch;
-
-}
-
-.expense-table{
-
-display:block;
-
-overflow-x:auto;
-
-}
+  .expense-table {
+    display: block;
+    overflow-x: auto;
+  }
 
 }

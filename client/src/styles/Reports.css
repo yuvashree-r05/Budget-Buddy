@@ -126,3 +126,25 @@
   }
 
 }
+
+/* ===== MONTH SELECTOR ===== */
+
+.month-selector {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.month-selector label {
+  color: #5a4a50;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.month-selector input[type="month"] {
+  padding: 8px 14px;
+  border-radius: 12px;
+  border: 1px solid #f0c4cf;
+  background: #ffffff;
+  color: #4a3b40;
+  font-size: 15px;
+}

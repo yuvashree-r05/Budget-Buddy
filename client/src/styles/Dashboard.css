@@ -24,6 +24,35 @@
   font-size: 18px;
 }
 
+/* ===== MONTH SELECTOR ===== */
+
+.month-selector {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.month-selector label {
+  color: #4a3b40;
+  font-weight: 600;
+  font-size: 17px;
+  margin-right: 10px;
+}
+
+.month-selector input[type="month"] {
+  padding: 12px 18px;
+  border: 2px solid #f0c4cf;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #4a3b40;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s ease;
+}
+
+.month-selector input[type="month"]:focus {
+  border-color: #d48a9b;
+}
+
 /* ===== SUMMARY CARDS ===== */
 
 .summary-cards {
@@ -85,6 +114,25 @@
   color: #7a6a70;
 }
 
+.planner-section input[type="number"] {
+  margin-top: 18px;
+  padding: 14px 18px;
+  border: 2px solid #f0c4cf;
+  border-radius: 14px;
+  font-size: 16px;
+  outline: none;
+  width: 100%;
+  max-width: 320px;
+  background: #fffdfd;
+  color: #4a3b40;
+  transition: 0.3s ease;
+  display: block;
+}
+
+.planner-section input[type="number"]:focus {
+  border-color: #d48a9b;
+}
+
 .planner-section button {
   margin-top: 20px;
 
@@ -143,5 +191,9 @@
 
   .summary-cards {
     grid-template-columns: 1fr;
+  }
+
+  .planner-section input[type="number"] {
+    max-width: 100%;
   }
 }

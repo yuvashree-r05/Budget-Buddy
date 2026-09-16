@@ -12,233 +12,153 @@ import {
 import "../styles/Dashboard.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
+const getCurrentMonth = () => new Date().toISOString().slice(0, 7);
 
 const Dashboard = () => {
 
-  const user =
-    JSON.parse(localStorage.getItem("user")) || {};
-
+  const user = JSON.parse(localStorage.getItem("user")) || {};
   const userName = user.name || "User";
 
-  const [incomeData, setIncomeData] = useState([]);
-  const [expenseData, setExpenseData] = useState([]);
-  const [goalAmount, setGoalAmount] = useState(0);
+  const [month, setMonth] = useState(getCurrentMonth());
+  const [summary, setSummary] = useState({
+    totalBudget: 0, income: 0, spent: 0, left: 0, netSavings: 0, savingsGoal: 0
+  });
+  const [budgetInput, setBudgetInput] = useState("");
 
   const [aiSuggestion, setAiSuggestion] = useState("");
   const [aiLoading, setAiLoading] = useState(false);
 
   useEffect(() => {
+    fetchSummary();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [month]);
 
-    fetchIncome();
-    fetchExpenses();
-    fetchGoal();
-
-  }, []);
-
-  const fetchIncome = async () => {
-
+  const fetchSummary = async () => {
     try {
-
       const response = await axios.get(
-        `${API_URL}/api/income/${user._id}`
+        `${API_URL}/api/budget/summary/${user._id}`,
+        { params: { month } }
       );
 
-      setIncomeData(response.data);
+      setSummary(response.data);
+      setBudgetInput(response.data.totalBudget || "");
 
     } catch (error) {
-
-      console.log("Income Fetch Error", error);
-
+      console.log("Summary Fetch Error", error);
     }
   };
 
-  const fetchExpenses = async () => {
-
+  const saveBudget = async () => {
     try {
+      await axios.post(`${API_URL}/api/budget`, {
+        userId: user._id,
+        month,
+        totalBudget: Number(budgetInput)
+      });
 
-      const response = await axios.get(
-        `${API_URL}/api/expense/${user._id}`
-      );
-
-      setExpenseData(response.data);
-
+      fetchSummary();
     } catch (error) {
-
-      console.log("Expense Fetch Error", error);
-
+      console.log("Save Budget Error", error);
     }
   };
-
-  const fetchGoal = async () => {
-
-    try {
-
-      const response = await axios.get(
-        `${API_URL}/api/goal/${user._id}`
-      );
-
-      console.log("Goal Data:", response.data);
-
-      if (response.data) {
-        setGoalAmount(response.data.targetAmount || 0);
-      }
-
-    } catch (error) {
-
-      console.log("Goal Fetch Error", error);
-
-    }
-  };
-
-  const totalIncome = incomeData.reduce(
-    (total, item) => total + Number(item.amount),
-    0
-  );
-
-  const totalExpense = expenseData.reduce(
-    (total, item) => total + Number(item.amount),
-    0
-  );
-
-  const budgetLeft =
-    totalIncome - totalExpense;
 
   useEffect(() => {
-
-    if (totalIncome > 0) {
+    if (summary.income > 0 || summary.spent > 0) {
       fetchAiSuggestion();
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [totalIncome, totalExpense, goalAmount]);
+  }, [summary.income, summary.spent, month]);
 
   const fetchAiSuggestion = async () => {
-
     setAiLoading(true);
 
     try {
-
-      const categoryTotals = {};
-
-      expenseData.forEach((item) => {
-
-        const category =
-          item.category || "Others";
-
-        categoryTotals[category] =
-          (categoryTotals[category] || 0) +
-          Number(item.amount);
-
+      const response = await axios.post(`${API_URL}/api/ai/ask`, {
+        userId: user._id,
+        question: `Give me one short suggestion to manage my budget for ${month}.`
       });
 
-      const response = await axios.post(
-        `${API_URL}/api/ai/suggestions`,
-        {
-          totalIncome,
-          totalExpense,
-          goalAmount,
-          categoryTotals
-        }
-      );
-
-      setAiSuggestion(response.data.suggestion);
+      setAiSuggestion(response.data.answer);
 
     } catch (error) {
-
       console.log("AI Suggestion Fetch Error", error);
       setAiSuggestion("Couldn't load a suggestion right now.");
-
     } finally {
-
       setAiLoading(false);
-
     }
   };
 
   return (
     <div className="dashboard-layout">
-
       <Sidebar />
 
       <div className="dashboard-content">
+        <h1>Welcome, {userName} 👋</h1>
 
-        <h1>
-          Welcome, {userName} 👋
-        </h1>
-
-        <p>
-          Let's create your personalized budget plan.
-        </p>
+        <div className="month-selector">
+          <label>Month: </label>
+          <input
+            type="month"
+            value={month}
+            onChange={(e) => setMonth(e.target.value)}
+          />
+        </div>
 
         <div className="summary-cards">
-
           <div className="card">
             <FaMoneyBillWave />
-            <h3>Total Income</h3>
-            <h2>₹{totalIncome}</h2>
+            <h3>Income ({month})</h3>
+            <h2>₹{summary.income}</h2>
           </div>
 
           <div className="card">
             <FaWallet />
-            <h3>Total Expense</h3>
-            <h2>₹{totalExpense}</h2>
+            <h3>Expense ({month})</h3>
+            <h2>₹{summary.spent}</h2>
           </div>
 
           <div className="card">
             <FaPiggyBank />
             <h3>Savings Goal</h3>
-            <h2>₹{goalAmount}</h2>
+            <h2>₹{summary.savingsGoal}</h2>
           </div>
 
           <div className="card">
             <FaChartPie />
             <h3>Budget Left</h3>
-            <h2>₹{budgetLeft}</h2>
+            <h2>₹{summary.left}</h2>
           </div>
-
         </div>
 
         <div className="planner-section">
+          <h2>Monthly Budget</h2>
 
-          <h2>Monthly Budget Planner</h2>
+          <p>Set how much you plan to spend this month — "Budget Left" updates automatically as you log expenses.</p>
 
-          <p>
-            Enter your income and expenses.
-            BudgetBuddy will generate a personalized
-            savings and spending plan for you.
-          </p>
+          <input
+            type="number"
+            placeholder="Enter monthly budget"
+            value={budgetInput}
+            onChange={(e) => setBudgetInput(e.target.value)}
+          />
 
-          <button>
-            Generate Budget Plan
-          </button>
-
+          <button onClick={saveBudget}>Save Budget</button>
         </div>
 
         <div className="ai-section">
-
           <h2>AI Suggestions</h2>
 
           {
-            totalIncome === 0 ? (
-              <p>
-                Add income details to receive
-                personalized recommendations.
-              </p>
+            summary.income === 0 && summary.spent === 0 ? (
+              <p>Add income or expenses for {month} to get a suggestion.</p>
             ) : aiLoading ? (
-              <p>
-                Generating your suggestion...
-              </p>
+              <p>Generating your suggestion...</p>
             ) : (
-              <p>
-                {aiSuggestion}
-              </p>
+              <p>{aiSuggestion}</p>
             )
           }
-
         </div>
-
       </div>
-
     </div>
   );
 };

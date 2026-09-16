@@ -8,7 +8,7 @@ const incomeRoutes = require("./routes/income");
 const expenseRoutes = require("./routes/expense");
 const goalRoutes = require("./routes/goal");
 const aiRoutes = require("./routes/ai");
-
+const budgetRoutes = require("./routes/budget");
 const app = express();
 
 /* ================= MIDDLEWARE ================= */
@@ -20,6 +20,7 @@ app.use("/api/income", incomeRoutes);
 app.use("/api/expense", expenseRoutes);
 app.use("/api/goal", goalRoutes);
 app.use("/api/ai", aiRoutes);
+app.use("/api/budget", budgetRoutes);
 
 /* ================= DATABASE ================= */
 

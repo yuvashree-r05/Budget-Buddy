@@ -12,12 +12,13 @@ router.post("/add", async (req, res) => {
 
   try {
 
-    const { userId, source, amount } = req.body;
+    const { userId, source, amount, date } = req.body;
 
     const income = new Income({
       userId,
       source,
-      amount
+      amount,
+      date: date || Date.now()
     });
 
     await income.save();
@@ -38,7 +39,6 @@ router.post("/add", async (req, res) => {
 
   }
 });
-
 /* GET ALL INCOME */
 
 router.get("/:userId", async (req, res) => {
@@ -111,6 +111,11 @@ router.delete("/delete/:id", async (req, res) => {
     message: "Income Deleted Successfully"
   });
 
+});
+
+router.get("/debug/:userId", async (req, res) => {
+  const incomes = await Income.find({ userId: req.params.userId }).lean();
+  res.json(incomes);
 });
 
 module.exports = router;
