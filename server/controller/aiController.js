@@ -26,7 +26,7 @@ const callGroq = async (messages, useTools = true) => {
     },
     body: JSON.stringify({
       model: "openai/gpt-oss-120b",
-      max_tokens: 400,
+      max_tokens: 900,
       messages,
       ...(useTools ? { tools, tool_choice: "auto" } : {})
     })
