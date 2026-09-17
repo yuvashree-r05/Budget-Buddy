@@ -22,9 +22,9 @@ const Reports = () => {
 
   const [month, setMonth] = useState(getCurrentMonth());
   const [summary, setSummary] = useState({
-    income: 0, spent: 0, savingsGoal: 0, categoryTotals: {}
+    income: 0, spent: 0, savingsGoal: 0, categoryTotals: {}, netSavings: 0
   });
-  const [savedAmount, setSavedAmount] = useState(0); // lifetime, for goal progress
+  const [savedAmount, setSavedAmount] = useState(0); // lifetime, shown as its own card only
 
   const [aiSummary, setAiSummary] = useState("");
   const [aiLoading, setAiLoading] = useState(false);
@@ -62,8 +62,16 @@ const Reports = () => {
 
   const goal = summary.savingsGoal || 0;
 
+  // Net savings for the SELECTED month (income - spent for that month),
+  // not lifetime savings. Falls back to a manual calc if the backend
+  // response is missing netSavings for any reason.
+  const monthlyNetSavings = summary.netSavings ?? (summary.income - summary.spent);
+
+  // Goal progress now compares this month's net savings to the goal,
+  // instead of lifetime savings. This makes it respect the month picker
+  // just like Income, Expense, and the pie chart already do.
   const progress = goal > 0
-    ? Math.min((savedAmount / goal) * 100, 100)
+    ? Math.min((monthlyNetSavings / goal) * 100, 100)
     : 0;
 
   const pieData = Object.keys(summary.categoryTotals || {}).map((category) => ({
@@ -130,20 +138,20 @@ const Reports = () => {
           </div>
 
           <div className="report-card">
-            <h3>Goal Progress</h3>
+            <h3>Goal Progress ({month})</h3>
             <h2>{progress.toFixed(0)}%</h2>
           </div>
         </div>
 
         <div className="progress-section">
-          <h2>Savings Goal Progress</h2>
+          <h2>Savings Goal Progress ({month})</h2>
 
           <div className="progress-bar">
             <div className="progress-fill" style={{ width: `${progress}%` }} />
           </div>
 
           <p className="progress-text">
-            ₹{savedAmount} saved out of ₹{goal}
+            ₹{monthlyNetSavings} saved out of ₹{goal} this month
           </p>
         </div>
 
