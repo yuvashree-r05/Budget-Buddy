@@ -25,6 +25,52 @@
 }
 
 /* ===========================
+      MONTH SELECTOR
+=========================== */
+
+.month-selector {
+
+  margin-bottom: 25px;
+
+}
+
+.month-selector label {
+
+  color: #6a4d58;
+
+  font-weight: 500;
+
+  margin-right: 10px;
+
+}
+
+.month-selector input[type="month"] {
+
+  padding: 8px 14px;
+
+  border-radius: 12px;
+
+  border: 2px solid #f5d6df;
+
+  background: #ffffff;
+
+  color: #5d4b54;
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition: .3s;
+
+}
+
+.month-selector input[type="month"]:focus {
+
+  border-color: #d8899d;
+
+}
+
+/* ===========================
         SUMMARY CARDS
 =========================== */
 
@@ -66,7 +112,13 @@
 
   margin-bottom: 12px;
 
-  font-size: 18px;
+  font-size: 17px;
+
+  line-height: 1.3;
+
+  /* Card headings can now include the month, e.g. "Saved (2026-09)" —
+     let long titles wrap instead of overflowing the box. */
+  overflow-wrap: break-word;
 
 }
 
